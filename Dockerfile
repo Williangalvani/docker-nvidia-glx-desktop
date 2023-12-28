@@ -328,10 +328,10 @@ Pin-Priority: -1" > /etc/apt/preferences.d/firefox-nosnap && \
         libkf5parts-plugins \
         libqt5multimedia5-plugins \
         librsvg2-common \
-        media-player-info \
-        okular \
-        okular-extra-backends \
-        partitionmanager \
+        # media-player-info \
+        # okular \
+        # okular-extra-backends \
+        # partitionmanager \
         plasma-browser-integration \
         plasma-calendar-addons \
         plasma-dataengines-addons \
@@ -341,7 +341,7 @@ Pin-Priority: -1" > /etc/apt/preferences.d/firefox-nosnap && \
         plasma-widgets-addons \
         policykit-desktop-privileges \
         polkit-kde-agent-1 \
-        print-manager \
+        # print-manager \
         qapt-deb-installer \
         qml-module-org-kde-runnermodel \
         qml-module-org-kde-qqc2desktopstyle \
@@ -357,27 +357,27 @@ Pin-Priority: -1" > /etc/apt/preferences.d/firefox-nosnap && \
         sweeper \
         systemsettings \
         ubuntu-drivers-common \
-        vlc \
-        vlc-l10n \
-        vlc-plugin-access-extra \
-        vlc-plugin-notify \
-        vlc-plugin-samba \
-        vlc-plugin-skins2 \
-        vlc-plugin-video-splitter \
-        vlc-plugin-visualization \
+        # vlc \
+        # vlc-l10n \
+        # vlc-plugin-access-extra \
+        # vlc-plugin-notify \
+        # vlc-plugin-samba \
+        # vlc-plugin-skins2 \
+        # vlc-plugin-video-splitter \
+        # vlc-plugin-visualization \
         xdg-desktop-portal-kde \
         xdg-user-dirs \
-        firefox \
-        pavucontrol-qt \
-        transmission-qt && \
-    apt-get install --install-recommends -y \
-        libreoffice \
-        libreoffice-kf5 \
-        libreoffice-plasma \
-        libreoffice-style-breeze && \
+        # firefox \
+        pavucontrol-qt && \
+    #     transmission-qt && \
+    # apt-get install --install-recommends -y \
+    #     libreoffice \
+    #     libreoffice-kf5 \
+    #     libreoffice-plasma \
+    #     libreoffice-style-breeze && \
     rm -rf /var/lib/apt/lists/* && \
     # Ensure Firefox is the default web browser
-    update-alternatives --set x-www-browser /usr/bin/firefox && \
+    # update-alternatives --set x-www-browser /usr/bin/firefox && \
     # Fix KDE startup permissions issues in containers
     cp -f /usr/lib/x86_64-linux-gnu/libexec/kf5/start_kdeinit /tmp/ && \
     rm -f /usr/lib/x86_64-linux-gnu/libexec/kf5/start_kdeinit && \
@@ -469,7 +469,7 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
     rm -rf /var/lib/apt/lists/* && \
     groupadd -g 1000 user && \
     useradd -ms /bin/bash user -u 1000 -g 1000 && \
-    usermod -a -G adm,audio,cdrom,dialout,dip,fax,floppy,input,lp,lpadmin,plugdev,pulse-access,scanner,ssl-cert,sudo,tape,tty,video,voice user && \
+    usermod -a -G adm,audio,cdrom,dialout,dip,fax,floppy,input,lp,plugdev,pulse-access,ssl-cert,sudo,tape,tty,video,voice user && \
     echo "user ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers && \
     chown user:user /home/user && \
     echo "user:${PASSWD}" | chpasswd && \
