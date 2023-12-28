@@ -67,21 +67,21 @@ RUN dpkg --add-architecture i386 && \
         vim \
         htop \
         fakeroot \
-        fonts-dejavu \
-        fonts-freefont-ttf \
-        fonts-hack \
-        fonts-liberation \
-        fonts-noto \
-        fonts-noto-cjk \
-        fonts-noto-cjk-extra \
-        fonts-noto-color-emoji \
-        fonts-noto-extra \
-        fonts-noto-ui-extra \
-        fonts-noto-hinted \
-        fonts-noto-mono \
-        fonts-noto-unhinted \
-        fonts-opensymbol \
-        fonts-symbola \
+        # fonts-dejavu \
+        # fonts-freefont-ttf \
+        # fonts-hack \
+        # fonts-liberation \
+        # fonts-noto \
+        # fonts-noto-cjk \
+        # fonts-noto-cjk-extra \
+        # fonts-noto-color-emoji \
+        # fonts-noto-extra \
+        # fonts-noto-ui-extra \
+        # fonts-noto-hinted \
+        # fonts-noto-mono \
+        # fonts-noto-unhinted \
+        # fonts-opensymbol \
+        # fonts-symbola \
         fonts-ubuntu \
         lame \
         less \
