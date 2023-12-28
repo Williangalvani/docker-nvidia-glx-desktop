@@ -40,11 +40,11 @@ RUN dpkg --add-architecture i386 && \
     apt-get update && apt-get install --no-install-recommends -y \
         alsa-base \
         alsa-utils \
-        cups-browsed \
-        cups-bsd \
-        cups-common \
-        cups-filters \
-        cups-pdf \
+        # cups-browsed \
+        # cups-bsd \
+        # cups-common \
+        # cups-filters \
+        # cups-pdf \
         file \
         bzip2 \
         gzip \
