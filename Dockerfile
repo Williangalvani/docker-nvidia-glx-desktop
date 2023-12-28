@@ -462,42 +462,6 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
 ENV LD_PRELOAD /usr/local/lib/selkies-js-interposer/joystick_interposer.so${LD_PRELOAD:+:${LD_PRELOAD}}
 ENV SDL_JOYSTICK_DEVICE /dev/input/js0
 
-# Install the noVNC web interface and the latest x11vnc for fallback
-RUN apt-get update && apt-get install --no-install-recommends -y \
-        autoconf \
-        automake \
-        autotools-dev \
-        chrpath \
-        debhelper \
-        git \
-        jq \
-        python3 \
-        python3-numpy \
-        libc6-dev \
-        libcairo2-dev \
-        libjpeg-turbo8-dev \
-        libssl-dev \
-        libv4l-dev \
-        libvncserver-dev \
-        libtool-bin \
-        libxdamage-dev \
-        libxinerama-dev \
-        libxrandr-dev \
-        libxss-dev \
-        libxtst-dev \
-        libavahi-client-dev && \
-    rm -rf /var/lib/apt/lists/* && \
-    # Build the latest x11vnc source to avoid various errors
-    git clone "https://github.com/LibVNC/x11vnc.git" /tmp/x11vnc && \
-    cd /tmp/x11vnc && autoreconf -fi && ./configure && make install && cd / && rm -rf /tmp/* && \
-    curl -fsSL "https://github.com/novnc/noVNC/archive/v${NOVNC_VERSION}.tar.gz" | tar -xzf - -C /opt && \
-    mv -f "/opt/noVNC-${NOVNC_VERSION}" /opt/noVNC && \
-    cd /opt/noVNC && ln -snf vnc.html index.html && \
-    # Use the latest Websockify source to expose noVNC
-    git clone "https://github.com/novnc/websockify.git" /opt/noVNC/utils/websockify
-
-# Add custom packages right below this comment, or use FROM in a new container and replace entrypoint.sh or supervisord.conf, and set ENTRYPOINT to /usr/bin/supervisord
-
 # Create user with password ${PASSWD} and assign adequate groups
 RUN apt-get update && apt-get install --no-install-recommends -y \
         sudo \
