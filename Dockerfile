@@ -36,8 +36,7 @@ ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
 
 # Install operating system libraries or packages
-RUN dpkg --add-architecture i386 && \
-    apt-get update && apt-get install --no-install-recommends -y \
+RUN apt-get update && apt-get install --no-install-recommends -y \
         alsa-base \
         alsa-utils \
         # cups-browsed \
@@ -95,21 +94,14 @@ RUN dpkg --add-architecture i386 && \
         mesa-utils \
         mesa-utils-extra \
         va-driver-all \
-        va-driver-all:i386 \
         i965-va-driver-shaders \
-        i965-va-driver-shaders:i386 \
         intel-media-va-driver-non-free \
-        intel-media-va-driver-non-free:i386 \
         libva2 \
-        libva2:i386 \
         vainfo \
         vdpau-driver-all \
-        vdpau-driver-all:i386 \
         vdpauinfo \
         mesa-vulkan-drivers \
-        mesa-vulkan-drivers:i386 \
         libvulkan-dev \
-        libvulkan-dev:i386 \
         vulkan-tools \
         ocl-icd-libopencl1 \
         clinfo \
@@ -137,33 +129,19 @@ RUN dpkg --add-architecture i386 && \
         xserver-xorg-video-qxl \
         # Install OpenGL libraries
         libxau6 \
-        libxau6:i386 \
         libxdmcp6 \
-        libxdmcp6:i386 \
         libxcb1 \
-        libxcb1:i386 \
         libxext6 \
-        libxext6:i386 \
         libx11-6 \
-        libx11-6:i386 \
         libxv1 \
-        libxv1:i386 \
         libxtst6 \
-        libxtst6:i386 \
         libglvnd0 \
-        libglvnd0:i386 \
         libgl1 \
-        libgl1:i386 \
         libglx0 \
-        libglx0:i386 \
         libegl1 \
-        libegl1:i386 \
         libgles2 \
-        libgles2:i386 \
         libglu1 \
-        libglu1:i386 \
-        libsm6 \
-        libsm6:i386 && \
+        libsm6  && \
     rm -rf /var/lib/apt/lists/* && \
     echo "/usr/local/nvidia/lib" >> /etc/ld.so.conf.d/nvidia.conf && \
     echo "/usr/local/nvidia/lib64" >> /etc/ld.so.conf.d/nvidia.conf && \
@@ -187,7 +165,7 @@ RUN dpkg --add-architecture i386 && \
 }" > /usr/share/glvnd/egl_vendor.d/10_nvidia.json
 # Expose NVIDIA libraries and paths
 ENV PATH /usr/local/nvidia/bin:${PATH}
-ENV LD_LIBRARY_PATH /usr/lib/x86_64-linux-gnu:/usr/lib/i386-linux-gnu${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}:/usr/local/nvidia/lib:/usr/local/nvidia/lib64
+ENV LD_LIBRARY_PATH /usr/lib/x86_64-linux-gnu:${LD_LIBRARY_PATH}}:/usr/local/nvidia/lib:/usr/local/nvidia/lib64
 # Make all NVIDIA GPUs visible by default
 ENV NVIDIA_VISIBLE_DEVICES all
 # All NVIDIA driver capabilities should preferably be used, check `NVIDIA_DRIVER_CAPABILITIES` inside the container if things do not work
@@ -218,7 +196,6 @@ ARG NOVNC_VERSION=1.4.0
 RUN apt-get update && apt-get install --no-install-recommends -y \
         kmod \
         libc6-dev \
-        libc6:i386 \
         libpci3 \
         libelf-dev \
         pkg-config \
