@@ -293,7 +293,6 @@ ENV SDL_JOYSTICK_DEVICE /dev/input/js0
 
 
 
-RUN mkdir -p /etc/xdg/lxsession/LXDE-pi/ && echo "@glxgears" > /etc/xdg/lxsession/LXDE-pi/autostart
 # Create user with password ${PASSWD} and assign adequate groups
 RUN apt-get update && apt-get install --no-install-recommends -y \
         sudo \
