@@ -32,12 +32,12 @@ sudo /etc/init.d/dbus start
 if ! command -v nvidia-xconfig &> /dev/null; then
   # Driver version is provided by the kernel through the container toolkit
   export DRIVER_ARCH="$(dpkg --print-architecture | sed -e 's/arm64/aarch64/'  -e 's/i.*86/x86/' -e 's/amd64/x86_64/' -e 's/unknown/x86_64/')"
-  export DRIVER_VERSION="$(head -n1 </proc/driver/nvidia/version | awk '{print $8}')"
+  export DRIVER_VERSION="$(head -n1 </proc/driver/nvidia/version | awk '{if ($8 == "for") print $10; else print $8}')" 
   cd /tmp
   # If version is different, new installer will overwrite the existing components
   if [ ! -f "/tmp/NVIDIA-Linux-${DRIVER_ARCH}-${DRIVER_VERSION}.run" ]; then
     # Check multiple sources in order to probe both consumer and datacenter driver versions
-    curl -fsSL -O "https://international.download.nvidia.com/XFree86/Linux-${DRIVER_ARCH}/${DRIVER_VERSION}/NVIDIA-Linux-${DRIVER_ARCH}-${DRIVER_VERSION}.run" || curl -fsSL -O "https://international.download.nvidia.com/tesla/${DRIVER_VERSION}/NVIDIA-Linux-${DRIVER_ARCH}-${DRIVER_VERSION}.run" || { echo "Failed NVIDIA GPU driver download. Exiting."; exit 1; }
+    curl -fsSL -O "https://international.download.nvidia.com/XFree86/Linux-${DRIVER_ARCH}/${DRIVER_VERSION}/NVIDIA-Linux-${DRIVER_ARCH}-${DRIVER_VERSION}.run" || curl -fsSL -O "https://us.download.nvidia.com/tesla/${DRIVER_VERSION}/NVIDIA-Linux-${DRIVER_ARCH}-${DRIVER_VERSION}.run" || { echo "Failed NVIDIA GPU driver download. Exiting."; exit 1; }
   fi
   # Extract installer before installing
   sudo sh "NVIDIA-Linux-${DRIVER_ARCH}-${DRIVER_VERSION}.run" -x
@@ -125,7 +125,7 @@ if [ "${NOVNC_ENABLE,,}" = "true" ]; then
 fi
 
 # Start KDE desktop environment
-/usr/bin/dbus-launch /usr/bin/startplasma-x11 &
+/usr/bin/dbus-launch /usr/bin/startlxde &
 
 # Start Fcitx input method framework
 /usr/bin/fcitx &

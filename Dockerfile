@@ -205,8 +205,8 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
 # Anything below this line should always be kept the same between docker-nvidia-glx-desktop and docker-nvidia-egl-desktop
 
 # Install KDE and other GUI packages
-ENV XDG_CURRENT_DESKTOP KDE
-ENV XDG_SESSION_DESKTOP KDE
+ENV XDG_CURRENT_DESKTOP LXDE
+ENV XDG_SESSION_DESKTOP LXDE
 ENV XDG_SESSION_TYPE x11
 ENV DESKTOP_SESSION plasma
 ENV KDE_FULL_SESSION true
@@ -221,158 +221,10 @@ ENV XIM fcitx
 ENV XMODIFIERS "@im=fcitx"
 # Enable AppImage execution in containers
 ENV APPIMAGE_EXTRACT_AND_RUN 1
-RUN mkdir -pm755 /etc/apt/preferences.d && echo "Package: firefox*\n\
-Pin: version 1:1snap*\n\
-Pin-Priority: -1" > /etc/apt/preferences.d/firefox-nosnap && \
-    mkdir -pm755 /etc/apt/trusted.gpg.d && curl -fsSL "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x0AB215679C571D1C8325275B9BDB3D89CE49EC21" | gpg --dearmor -o /etc/apt/trusted.gpg.d/mozillateam-ubuntu-ppa.gpg && \
-    mkdir -pm755 /etc/apt/sources.list.d && echo "deb https://ppa.launchpadcontent.net/mozillateam/ppa/ubuntu $(grep UBUNTU_CODENAME= /etc/os-release | cut -d= -f2 | tr -d '\"') main" > "/etc/apt/sources.list.d/mozillateam-ubuntu-ppa-$(grep UBUNTU_CODENAME= /etc/os-release | cut -d= -f2 | tr -d '\"').list" && \
-    apt-get update && apt-get install --no-install-recommends -y \
-        kde-plasma-desktop \
-        adwaita-icon-theme-full \
-        appmenu-gtk3-module \
-        ark \
-        aspell \
-        aspell-en \
-        breeze \
-        breeze-cursor-theme \
-        breeze-gtk-theme \
-        breeze-icon-theme \
-        debconf-kde-helper \
-        desktop-file-utils \
-        dolphin \
-        dolphin-plugins \
-        dbus-x11 \
-        enchant-2 \
-        fcitx \
-        fcitx-frontend-gtk2 \
-        fcitx-frontend-gtk3 \
-        fcitx-frontend-qt5 \
-        fcitx-module-dbus \
-        fcitx-module-kimpanel \
-        fcitx-module-lua \
-        fcitx-module-x11 \
-        fcitx-tools \
-        fcitx-hangul \
-        fcitx-libpinyin \
-        fcitx-m17n \
-        fcitx-mozc \
-        fcitx-sayura \
-        fcitx-unikey \
-        filelight \
-        frameworkintegration \
-        gwenview \
-        haveged \
-        hunspell \
-        im-config \
-        kate \
-        kcalc \
-        kcharselect \
-        kdeadmin \
-        kde-config-fcitx \
-        kde-config-gtk-style \
-        kde-config-gtk-style-preview \
-        kdeconnect \
-        kdegraphics-thumbnailers \
-        kde-spectacle \
-        kdf \
-        kdialog \
-        kget \
-        kimageformat-plugins \
-        kinfocenter \
-        kio \
-        kio-extras \
-        kmag \
-        kmenuedit \
-        kmix \
-        kmousetool \
-        kmouth \
-        ksshaskpass \
-        ktimer \
-        kwayland-integration \
-        kwin-addons \
-        kwin-x11 \
-        libdbusmenu-glib4 \
-        libdbusmenu-gtk3-4 \
-        libgail-common \
-        libgdk-pixbuf2.0-bin \
-        libgtk2.0-bin \
-        libgtk-3-bin \
-        libkf5baloowidgets-bin \
-        libkf5dbusaddons-bin \
-        libkf5iconthemes-bin \
-        libkf5kdelibs4support5-bin \
-        libkf5khtml-bin \
-        libkf5parts-plugins \
-        libqt5multimedia5-plugins \
-        librsvg2-common \
-        # media-player-info \
-        # okular \
-        # okular-extra-backends \
-        # partitionmanager \
-        plasma-browser-integration \
-        plasma-calendar-addons \
-        plasma-dataengines-addons \
-        plasma-discover \
-        plasma-integration \
-        plasma-runners-addons \
-        plasma-widgets-addons \
-        policykit-desktop-privileges \
-        polkit-kde-agent-1 \
-        # print-manager \
-        qapt-deb-installer \
-        qml-module-org-kde-runnermodel \
-        qml-module-org-kde-qqc2desktopstyle \
-        qml-module-qtgraphicaleffects \
-        qml-module-qtquick-xmllistmodel \
-        qt5-gtk-platformtheme \
-        qt5-image-formats-plugins \
-        qt5-style-plugins \
-        qtspeech5-flite-plugin \
-        qtvirtualkeyboard-plugin \
-        software-properties-qt \
-        sonnet-plugins \
-        sweeper \
-        systemsettings \
-        ubuntu-drivers-common \
-        # vlc \
-        # vlc-l10n \
-        # vlc-plugin-access-extra \
-        # vlc-plugin-notify \
-        # vlc-plugin-samba \
-        # vlc-plugin-skins2 \
-        # vlc-plugin-video-splitter \
-        # vlc-plugin-visualization \
-        xdg-desktop-portal-kde \
-        xdg-user-dirs \
-        # firefox \
-        pavucontrol-qt && \
-    #     transmission-qt && \
-    # apt-get install --install-recommends -y \
-    #     libreoffice \
-    #     libreoffice-kf5 \
-    #     libreoffice-plasma \
-    #     libreoffice-style-breeze && \
-    rm -rf /var/lib/apt/lists/* && \
-    # Ensure Firefox is the default web browser
-    # update-alternatives --set x-www-browser /usr/bin/firefox && \
-    # Fix KDE startup permissions issues in containers
-    cp -f /usr/lib/x86_64-linux-gnu/libexec/kf5/start_kdeinit /tmp/ && \
-    rm -f /usr/lib/x86_64-linux-gnu/libexec/kf5/start_kdeinit && \
-    cp -r /tmp/start_kdeinit /usr/lib/x86_64-linux-gnu/libexec/kf5/start_kdeinit && \
-    rm -f /tmp/start_kdeinit && \
-    # KDE disable screen lock, double-click to open instead of single-click
-    echo "[Daemon]\n\
-Autolock=false\n\
-LockOnResume=false" > /etc/xdg/kscreenlockerrc && \
-    echo "[KDE]\n\
-SingleClick=false\n\
-\n\
-[KDE Action Restrictions]\n\
-action/lock_screen=false\n\
-logout=false" > /etc/xdg/kdeglobals
 
 # Install latest Selkies-GStreamer (https://github.com/selkies-project/selkies-gstreamer) build, Python application, and web application, should be consistent with selkies-gstreamer documentation
 RUN apt-get update && apt-get install --no-install-recommends -y \
+        lxde \
         # GStreamer dependencies
         python3-pip \
         python3-dev \
@@ -439,6 +291,9 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
 ENV LD_PRELOAD /usr/local/lib/selkies-js-interposer/joystick_interposer.so${LD_PRELOAD:+:${LD_PRELOAD}}
 ENV SDL_JOYSTICK_DEVICE /dev/input/js0
 
+
+
+RUN mkdir -p /etc/xdg/lxsession/LXDE-pi/ && echo "@glxgears" > /etc/xdg/lxsession/LXDE-pi/autostart
 # Create user with password ${PASSWD} and assign adequate groups
 RUN apt-get update && apt-get install --no-install-recommends -y \
         sudo \
