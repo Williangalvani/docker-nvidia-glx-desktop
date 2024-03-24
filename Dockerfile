@@ -85,7 +85,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends gcc make && apt
         bzip2 \
         gzip \
         xz-utils \
-        unar \
+        # unar \
         zip \
         unzip \
         zstd \
@@ -114,7 +114,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends gcc make && apt
         vainfo \
         #vdpau-driver-all \
         #vdpauinfo \
-        mesa-vulkan-drivers \
+        #mesa-vulkan-drivers \ #coul be required for non nvidia gpus
         libvulkan-dev \
         vulkan-tools \
         ocl-icd-libopencl1 \
@@ -236,7 +236,23 @@ RUN apt-get update && apt-get install -y --no-install-recommends gcc make && apt
     cd /tmp && curl -fsSL -O "https://github.com/selkies-project/selkies-gstreamer/releases/download/v${SELKIES_VERSION}/selkies_gstreamer-${SELKIES_VERSION}-py3-none-any.whl" && pip3 install "selkies_gstreamer-${SELKIES_VERSION}-py3-none-any.whl" && rm -f "selkies_gstreamer-${SELKIES_VERSION}-py3-none-any.whl" && \
     cd /opt && curl -fsSL "https://github.com/selkies-project/selkies-gstreamer/releases/download/v${SELKIES_VERSION}/selkies-gstreamer-web-v${SELKIES_VERSION}.tgz" | tar -zxf - && \
     cd /tmp && curl -fsSL -o selkies-js-interposer.deb "https://github.com/selkies-project/selkies-gstreamer/releases/download/v${SELKIES_VERSION}/selkies-js-interposer-v${SELKIES_VERSION}-ubuntu$(grep VERSION_ID= /etc/os-release | cut -d= -f2 | tr -d '\"').deb" && apt-get update && apt-get install --no-install-recommends -y ./selkies-js-interposer.deb && rm -f ./selkies-js-interposer.deb && \ 
-    apt autoremove -y gcc make && rm -rf /var/lib/apt/lists/* && rm -rf /var/lib/apt/lists/* /tmp/*
+    apt autoremove -y \
+    gstreamer1.0-adapter-pulseeffects \
+    gstreamer1.0-autogain-pulseeffects \
+    gstreamer1.0-convolver-pulseeffects \
+    gstreamer1.0-crystalizer-pulseeffects \
+    gstreamer1.0-espeak \
+    gstreamer1.0-fdkaac \
+    gstreamer1.0-gtk3 \
+    gstreamer1.0-omx-bellagio-config \
+    gstreamer1.0-omx-generic-config \
+    gstreamer1.0-omx-generic \
+    gstreamer1.0-opencv \
+    gstreamer1.0-pocketsphinx \
+    gstreamer1.0-qt5 gstreamer1.0-wpe \
+    gcc \
+    make \
+    && apt autoremove -y && rm -rf /var/lib/apt/lists/* && rm -rf /var/lib/apt/lists/* /tmp/*
 # Add configuration for Selkies-GStreamer Joystick interposer
 ENV LD_PRELOAD /usr/local/lib/selkies-js-interposer/joystick_interposer.so${LD_PRELOAD:+:${LD_PRELOAD}}
 ENV SDL_JOYSTICK_DEVICE /dev/input/js0
@@ -259,6 +275,9 @@ COPY selkies-gstreamer-entrypoint.sh /etc/selkies-gstreamer-entrypoint.sh
 RUN chmod 755 /etc/selkies-gstreamer-entrypoint.sh
 COPY supervisord.conf /etc/supervisord.conf
 RUN chmod 755 /etc/supervisord.conf
+
+COPY bluesim-x86 /home/user/bluesim-x86
+RUN chmod +x /home/user/bluesim-x86
 
 EXPOSE 8080
 
