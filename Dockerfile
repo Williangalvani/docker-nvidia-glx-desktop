@@ -40,8 +40,6 @@ ENV WEBRTC_ENCODER nvh264enc
 ENV WEBRTC_ENABLE_RESIZE false
 ENV ENABLE_BASIC_AUTH true
 
-# Set versions for components that should be manually checked before upgrading, other component versions are automatically determined by fetching the version online
-ARG NOVNC_VERSION=1.4.0
 
 # Install KDE and other GUI packages
 ENV XDG_CURRENT_DESKTOP LXDE
@@ -82,12 +80,7 @@ ENV LC_ALL en_US.UTF-8
 # Install operating system libraries or packages
 RUN apt-get update && apt-get install -y --no-install-recommends gcc make && apt-get install --no-install-recommends -y \
         alsa-base \
-        alsa-utils \
-        # cups-browsed \
-        # cups-bsd \
-        # cups-common \
-        # cups-filters \
-        # cups-pdf \
+        #alsa-utils \
         file \
         bzip2 \
         gzip \
@@ -101,28 +94,12 @@ RUN apt-get update && apt-get install -y --no-install-recommends gcc make && apt
         ssl-cert \
         mlocate \
         nano \
-        vim \
+        #vim \
         htop \
         fakeroot \
-        # fonts-dejavu \
-        # fonts-freefont-ttf \
-        # fonts-hack \
-        # fonts-liberation \
-        # fonts-noto \
-        # fonts-noto-cjk \
-        # fonts-noto-cjk-extra \
-        # fonts-noto-color-emoji \
-        # fonts-noto-extra \
-        # fonts-noto-ui-extra \
-        # fonts-noto-hinted \
-        # fonts-noto-mono \
-        # fonts-noto-unhinted \
-        # fonts-opensymbol \
-        # fonts-symbola \
-        fonts-ubuntu \
         lame \
         less \
-        libavcodec-extra \
+        #libavcodec-extra \
         libpulse0 \
         pulseaudio \
         supervisor \
@@ -130,14 +107,13 @@ RUN apt-get update && apt-get install -y --no-install-recommends gcc make && apt
         packagekit-tools \
         pkg-config \
         mesa-utils \
-        mesa-utils-extra \
         va-driver-all \
-        i965-va-driver-shaders \
-        intel-media-va-driver-non-free \
+ #       i965-va-driver-shaders \
+ #       intel-media-va-driver-non-free \
         libva2 \
         vainfo \
-        vdpau-driver-all \
-        vdpauinfo \
+        #vdpau-driver-all \
+        #vdpauinfo \
         mesa-vulkan-drivers \
         libvulkan-dev \
         vulkan-tools \
@@ -152,18 +128,16 @@ RUN apt-get update && apt-get install -y --no-install-recommends gcc make && apt
         xdg-user-dirs \
         xdg-utils \
         xfonts-base \
-        xfonts-scalable \
+#        xfonts-scalable \
         xinit \
         xsettingsd \
         libxrandr-dev \
         x11-xkb-utils \
         x11-xserver-utils \
         x11-utils \
-        x11-apps \
         xserver-xorg-input-all \
-        xserver-xorg-input-wacom \
         xserver-xorg-video-all \
-        xserver-xorg-video-intel \
+#        xserver-xorg-video-intel \
         xserver-xorg-video-qxl \
         # Install OpenGL libraries
         libxau6 \
@@ -194,52 +168,38 @@ RUN apt-get update && apt-get install -y --no-install-recommends gcc make && apt
         python3-gi \
         python3-setuptools \
         python3-wheel \
-        udev \
         wmctrl \
-        jq \
+        #jq \
         gdebi-core \
-        libgdk-pixbuf2.0-0 \
-        libgtk2.0-bin \
-        libgl-dev \
-        libgles-dev \
+        #libgl-dev \
+        #libgles-dev \
         libglvnd-dev \
-        libgudev-1.0-0 \
+        #libgudev-1.0-0 \
         xclip \
         x11-utils \
         xdotool \
         x11-xserver-utils \
         xserver-xorg-core \
-        wayland-protocols \
-        libwayland-dev \
-        libwayland-egl1 \
         libx11-xcb1 \
         libxkbcommon0 \
         libxdamage1 \
         libsoup2.4-1 \
         libsoup-gnome2.4-1 \
         libsrtp2-1 \
-        lame \
-        libopus0 \
+#        lame \
+#        libopus0 \
         libwebrtc-audio-processing1 \
         pulseaudio \
         libpulse0 \
-        libcairo-gobject2 \
-        libpangocairo-1.0-0 \
         libgirepository-1.0-1 \
         libopenjp2-7 \
-        libjpeg-dev \
-        libwebp-dev \
-        libvpx-dev \
-        zlib1g-dev \
-        x264 \
-        # AMD/Intel graphics driver dependencies
-        va-driver-all \
-        i965-va-driver-shaders \
-        intel-media-va-driver-non-free \
+        #va-driver-all \
+        #i965-va-driver-shaders \
+        #intel-media-va-driver-non-free \
         libva2 \
         vainfo \
-        intel-gpu-tools \
-        radeontop \
+        #intel-gpu-tools \
+        #radeontop \
         xcvt \
         sudo \
         libgstreamer-plugins-bad1.0-0 \
