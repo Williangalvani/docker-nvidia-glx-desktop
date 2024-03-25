@@ -75,6 +75,7 @@ ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
 
+COPY forced_cleanup.sh /forced_cleanup.sh
 # Install operating system libraries or packages
 RUN apt-get update && apt-get install -y --no-install-recommends gcc make && apt-get install --no-install-recommends -y \
         alsa-base \
@@ -231,7 +232,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends gcc make && apt
     gstreamer1.0-qt5 gstreamer1.0-wpe \
     gcc \
     make \
-    && apt autoremove -y && rm -rf /var/lib/apt/lists/* && rm -rf /var/lib/apt/lists/* /tmp/*
+    && apt autoremove -y && rm -rf /var/lib/apt/lists/* && rm -rf /var/lib/apt/lists/* /tmp/* && /forced_cleanup.sh
 # Add configuration for Selkies-GStreamer Joystick interposer
 ENV LD_PRELOAD /usr/local/lib/selkies-js-interposer/joystick_interposer.so${LD_PRELOAD:+:${LD_PRELOAD}}
 ENV SDL_JOYSTICK_DEVICE /dev/input/js0
