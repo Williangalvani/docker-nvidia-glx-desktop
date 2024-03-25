@@ -127,12 +127,12 @@ RUN apt-get update && apt-get install -y --no-install-recommends gcc make && apt
         xsettingsd \
         libxrandr-dev \
         x11-xkb-utils \
-        x11-xserver-utils \
-        x11-utils \
+        # x11-xserver-utils \
+        # x11-utils \
         xserver-xorg-input-all \
-        xserver-xorg-video-all \
+        # xserver-xorg-video-all \
 #        xserver-xorg-video-intel \
-        xserver-xorg-video-qxl \
+        # xserver-xorg-video-qxl \
         # Install OpenGL libraries
         libxau6 \
         libxdmcp6 \
@@ -168,7 +168,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends gcc make && apt
         xclip \
         x11-utils \
         xdotool \
-        x11-xserver-utils \
+        #x11-xserver-utils \
         xserver-xorg-core \
         libx11-xcb1 \
         libxkbcommon0 \

@@ -13,3 +13,5 @@ dpkg -P --force-depends libmfx1
 dpkg -P --force-depends libpython3.10-dev
 dpkg -P --force-depends iso-codes
 dpkg -P --force-depends libx265-199
+dpkg -P --force-depends libllvm15
+dpkg -P --force-depends cpp-11
