@@ -66,9 +66,7 @@ RUN apt-get clean && apt-get update && apt-get install --no-install-recommends -
         apt-utils \
         ca-certificates \
         curl \
-        gnupg \
 #        locales \
-        software-properties-common \
         wget && \
     rm -rf /var/lib/apt/lists/*
 #    locale-gen en_US.UTF-8
@@ -82,22 +80,17 @@ RUN apt-get update && apt-get install -y --no-install-recommends gcc make && apt
         alsa-base \
         #alsa-utils \
         file \
-        bzip2 \
-        gzip \
         xz-utils \
         # unar \
-        zip \
         unzip \
         zstd \
         jq \
         python3 \
         ssl-cert \
-        mlocate \
         nano \
         #vim \
         htop \
         fakeroot \
-        lame \
         less \
         #libavcodec-extra \
         libpulse0 \
@@ -106,12 +99,12 @@ RUN apt-get update && apt-get install -y --no-install-recommends gcc make && apt
         net-tools \
         packagekit-tools \
         pkg-config \
-        mesa-utils \
-        va-driver-all \
+        #mesa-utils \
+        #va-driver-all \
  #       i965-va-driver-shaders \
  #       intel-media-va-driver-non-free \
-        libva2 \
-        vainfo \
+        #libva2 \
+        #vainfo \
         #vdpau-driver-all \
         #vdpauinfo \
         #mesa-vulkan-drivers \ #coul be required for non nvidia gpus
@@ -169,12 +162,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends gcc make && apt
         python3-setuptools \
         python3-wheel \
         wmctrl \
-        #jq \
         gdebi-core \
-        #libgl-dev \
-        #libgles-dev \
         libglvnd-dev \
-        #libgudev-1.0-0 \
         xclip \
         x11-utils \
         xdotool \
@@ -186,24 +175,14 @@ RUN apt-get update && apt-get install -y --no-install-recommends gcc make && apt
         libsoup2.4-1 \
         libsoup-gnome2.4-1 \
         libsrtp2-1 \
-#        lame \
-#        libopus0 \
         libwebrtc-audio-processing1 \
         pulseaudio \
         libpulse0 \
         libgirepository-1.0-1 \
         libopenjp2-7 \
-        #va-driver-all \
-        #i965-va-driver-shaders \
-        #intel-media-va-driver-non-free \
-        libva2 \
-        vainfo \
-        #intel-gpu-tools \
-        #radeontop \
         xcvt \
         sudo \
         libgstreamer-plugins-bad1.0-0 \
-        gstreamer1.0-plugins-ugly \
         gstreamer1.0-rtsp \
         gstreamer1.0 \
         tzdata && \
